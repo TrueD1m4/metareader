@@ -1,6 +1,7 @@
 mod arguments;
 
 use std::{env, process};
+use std::fs;
 use arguments::Arguments;
 
 fn main() {
@@ -24,5 +25,7 @@ fn main() {
         }
     );
 
+    let source_file = fs::read_to_string(arguments.filepath.clone())
+        .expect("File doesn't exists");
     println!("{:?}", arguments);
 }

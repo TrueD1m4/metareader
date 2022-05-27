@@ -1,14 +1,14 @@
 #[derive(Debug)]
-enum OutputType {
+pub enum OutputType {
     Console,
     File
 }
 
 #[derive(Debug)]
 pub struct Arguments {
-    output_type: OutputType,
-    filepath: String,
-    output_file: Option<String>
+    pub output_type: OutputType,
+    pub filepath: String,
+    pub output_file: Option<String>
 }
 
 impl Arguments {
@@ -52,15 +52,11 @@ impl Arguments {
                     Self::check_file_argument(arguments, &mut args, normal_length);
                 }
                 _ => {
-                    return Err(String::from("Invalid syntax!"));
+                    args.output_type = OutputType::Console;
+                    args.filepath = arguments[1].clone();
+                    args.output_file = None;
                 }
             };
-
-            if arguments.len() == 2 {
-                return Err(String::from("Invalid syntax!"));
-            } else {
-                args.filepath = arguments[2].clone();
-            }
 
             Ok(args)
         }
